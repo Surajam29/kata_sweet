@@ -14,7 +14,6 @@ A full-stack **Sweet Shop** built TDD-first. Customers can browse sweets, search
 
 * **Auth:** Register/Login, JWT (HttpOnly cookie or Bearer), role-based guards
 * **Catalog:** List, filter, semantic search (`/api/search?q=...`)
-* **AI Recommendations:** “Related sweets” widget powered by vector similarity
 * **Cart & Checkout:** Cart totals, taxes hook, order creation
 * **Admin:** CRUD for sweets, inventory & stock thresholds
 * **TDD:** Unit + integration tests (auth, sweets, orders, AI endpoints)
@@ -203,6 +202,7 @@ db.sweets.aggregate([
 
 I used an AI assistant **only** to help draft project documentation and boilerplate scaffolding ideas.
 **All application AI features (semantic search, recommendations, tagging) are implemented in the project code itself**, using sentence-transformer embeddings and MongoDB vector search. I reviewed and tested everything locally.
+
 
 
 
