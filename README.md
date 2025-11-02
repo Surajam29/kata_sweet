@@ -33,104 +33,7 @@ A full-stack **Sweet Shop** built TDD-first. Customers can browse sweets, search
 
 * **Model:** `sentence-transformers/all-MiniLM-L6-v2` (fast, 384-dim).
   You can run it locally (Node or Python script) or by precomputing offline.
-* **Vector storage:**
 
-  * **Option A (Atlas Search):** Use MongoDB Atlas Search **vector** index on `embedding`.
-  * **Option B (Manual):** Store `embedding: number[]` in each document; compute cosine similarity in app code (OK for small data).
-
-**Data shape (`sweets` collection):**
-
-```ts
-{
-  _id: ObjectId,
-  name: string,
-  category: string,
-  price: number,
-  quantity: number,
-  description?: string,
-  tags?: string[],
-  imageUrl?: string,
-  embedding?: number[]    // 384-dim
-}
-```
-
-**Env for AI (add to `backend/.env`):**
-
-```
-EMBEDDINGS_DIM=384
-AI_PROVIDER=local            # local | openai
-OPENAI_API_KEY=              # only if AI_PROVIDER=openai
-AI_BATCH_SIZE=64
-```
-
-**Create Atlas vector index (Option A):**
-
-```json
-{
-  "mappings": {
-    "dynamic": true,
-    "fields": {
-      "embedding": {
-        "type": "knnVector",
-        "dimensions": 384,
-        "similarity": "cosine"
-      }
-    }
-  }
-}
-```
-
-**Embed & seed script (Node/TS outline):**
-
-```ts
-// src/scripts/embed-seed.ts
-import { pipeline } from "@xenova/transformers"; // pure JS, no Python needed
-import { SweetModel } from "../modules/sweets/sweet.model";
-
-async function run() {
-  const extractor = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2"); // browser/Node port
-  const sweets = await SweetModel.find({});
-
-  for (const s of sweets) {
-    const text = [s.name, s.description || "", (s.tags || []).join(" ")].join(" ");
-    const output = await extractor(text, { pooling: "mean", normalize: true });
-    s.embedding = Array.from(output.data); // Float32Array → number[]
-    await s.save();
-  }
-  console.log("Embeddings updated.");
-}
-run().catch(console.error);
-```
-
-**Semantic search endpoint (sketch):**
-
-```ts
-// GET /api/search?q=chocolate bar
-// If using Atlas Search knnBeta:
-db.sweets.aggregate([
-  {
-    $search: {
-      knnBeta: {
-        vector: <queryEmbedding>,
-        path: "embedding",
-        k: 10
-      }
-    }
-  },
-  { $project: { name: 1, price: 1, score: { $meta: "searchScore" } } }
-]);
-```
-
-**Recommendations (sketch):**
-
-```ts
-// GET /api/sweets/:id/related
-// Fetch sweet.embedding → knn vector query (exclude itself) → top 6.
-```
-
-> ✅ **Note:** This section describes **AI used in the project code**. The README itself was authored by a human; see the “My AI Usage” section later to disclose tooling if required by your evaluator.
-
----
 
 ## 🗂️ Repository Layout
 
@@ -209,6 +112,7 @@ db.sweets.aggregate([
 
 I used an AI assistant **only** to help draft project documentation and boilerplate scaffolding ideas.
 **All application AI features (semantic search, recommendations, tagging) are implemented in the project code itself**, using sentence-transformer embeddings and MongoDB vector search. I reviewed and tested everything locally.
+
 
 
 
