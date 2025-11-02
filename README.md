@@ -161,6 +161,13 @@ db.sweets.aggregate([
 
 
 
+<img width="1848" height="820" alt="image" src="https://github.com/user-attachments/assets/09407068-188c-4341-bc85-c22de0212af7" />
+
+<img width="1900" height="852" alt="image" src="https://github.com/user-attachments/assets/da1b22d9-2420-4eed-97f6-93571086fdf7" />
+
+<img width="1870" height="868" alt="image" src="https://github.com/user-attachments/assets/57db1aef-fa58-4fe4-87cf-c21166b7c87d" />
+
+
 
 
 
@@ -202,6 +209,7 @@ db.sweets.aggregate([
 
 I used an AI assistant **only** to help draft project documentation and boilerplate scaffolding ideas.
 **All application AI features (semantic search, recommendations, tagging) are implemented in the project code itself**, using sentence-transformer embeddings and MongoDB vector search. I reviewed and tested everything locally.
+
 
 
 
