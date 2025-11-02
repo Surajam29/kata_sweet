@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 340 80% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 80% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 80% 15%;
+
+    --primary: 340 82% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 95% 85%;
+    --secondary-foreground: 340 80% 15%;
+
+    --muted: 20 50% 95%;
+    --muted-foreground: 340 30% 45%;
+
+    --accent: 280 70% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 150 60% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 340 30% 90%;
+    --input: 340 30% 92%;
+    --ring: 340 82% 62%;
+
+    --radius: 0.75rem;
+
+    /* Candy gradients */
+    --gradient-candy: linear-gradient(135deg, hsl(340 82% 62%), hsl(25 95% 75%));
+    --gradient-sweet: linear-gradient(180deg, hsl(340 82% 95%), hsl(25 95% 90%));
+    --gradient-hero: linear-gradient(135deg, hsl(340 82% 62%) 0%, hsl(280 70% 65%) 50%, hsl(25 95% 70%) 100%);
+    
+    /* Shadows */
+    --shadow-candy: 0 10px 30px -10px hsl(340 82% 62% / 0.3);
+    --shadow-card: 0 4px 20px hsl(340 20% 70% / 0.15);
+  }
+
+  .dark {
+    --background: 340 50% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 340 40% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 340 50% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 340 82% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 340 30% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 340 30% 20%;
+    --muted-foreground: 340 10% 65%;
+
+    --accent: 280 70% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 150 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 340 30% 25%;
+    --input: 340 30% 25%;
+    --ring: 340 82% 62%;
+
+    --gradient-candy: linear-gradient(135deg, hsl(340 82% 52%), hsl(25 80% 60%));
+    --gradient-sweet: linear-gradient(180deg, hsl(340 50% 15%), hsl(25 50% 18%));
+    --gradient-hero: linear-gradient(135deg, hsl(340 82% 42%) 0%, hsl(280 70% 45%) 50%, hsl(25 80% 50%) 100%);
+    
+    --shadow-candy: 0 10px 30px -10px hsl(340 82% 40% / 0.5);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
