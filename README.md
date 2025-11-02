@@ -4,7 +4,7 @@ A full-stack **Sweet Shop** built TDD-first. Customers can browse sweets, search
 
 > **Stack**
 >
-> * **Backend:** Node.js + TypeScript, Express, MongoDB (Mongoose), JWT, Zod, Jest + Supertest
+> * **Backend:** Supabase
 > * **Frontend:** React + Vite + TypeScript, React Router, TanStack Query, Tailwind, Zustand
 > * **AI (in the project code, not for authoring this README):** sentence-transformer embeddings for semantic search & recommendations; vector search in MongoDB (Atlas Search or custom vector fields + cosine sim). Optional OpenAI endpoint for richer product descriptions.
 
@@ -158,99 +158,13 @@ db.sweets.aggregate([
 
 ---
 
-## ⚙️ Prerequisites
 
-* Node 18+ and npm / pnpm
-* MongoDB local (`mongod`) **or** MongoDB Atlas + **Compass**
-* Optional: Docker & Docker Compose
 
----
 
-## 🚀 Setup & Run Locally
 
-### 1) Clone & Install
 
-```bash
-git clone <your-repo-url> sweet-shop
-cd sweet-shop
 
-cd backend && npm i && cd ..
-cd frontend && npm i && cd ..
-```
 
-### 2) Environment
-
-**`backend/.env.example`**
-
-```
-PORT=4000
-NODE_ENV=development
-MONGODB_URI=mongodb://127.0.0.1:27017/sweetshop
-
-JWT_SECRET=change_me
-JWT_EXPIRES_IN=7d
-CORS_ORIGIN=http://localhost:5173
-COOKIE_SECURE=false
-
-# AI
-EMBEDDINGS_DIM=384
-AI_PROVIDER=local        # local | openai
-OPENAI_API_KEY=
-AI_BATCH_SIZE=64
-```
-
-**`frontend/.env.example`**
-
-```
-VITE_API_BASE_URL=http://localhost:4000
-```
-
-Copy examples to real env files and edit as needed:
-
-```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-```
-
-### 3) Start Backend (dev)
-
-```bash
-cd backend
-npm run dev       # API → http://localhost:4000
-```
-
-### 4) Start Frontend (dev)
-
-```bash
-cd ../frontend
-npm run dev       # Web → http://localhost:5173
-```
-
----
-
-## 🧪 Testing (TDD)
-
-```bash
-cd backend
-npm test          # Jest + Supertest
-
-cd ../frontend
-npm run test      # Vitest + Testing Library
-```
-
----
-
-## 🌱 Seed Data & Embeddings
-
-```bash
-cd backend
-npm run seed          # adds sample sweets + admin user
-npm run embed:seed    # generates embeddings for sweets (see script above)
-```
-
-> **Admin (example):** `admin@sweet.shop / admin123`
-
----
 
 ## 🔌 API Reference (Selected)
 
@@ -281,58 +195,15 @@ npm run embed:seed    # generates embeddings for sweets (see script above)
 
 ---
 
-## 🧩 Frontend Notes
 
-* **Pages:** Home (catalog + search), Sweet detail (with **Related**), Auth, Cart, Checkout, Orders, Admin dashboard
-* **State:** Zustand for cart/user; React Query for API cache; guarded routes for admin
-* **UI:** Tailwind utility classes + accessible forms; toasts for API feedback
 
----
 
-## 🔐 Security & Performance
-
-* HttpOnly cookie for JWT (or Bearer for mobile clients)
-* Zod validation on inputs; sanitize user content
-* Indexes on `name`, `category`, and (if manual vector) a small inverted index for text
-* Rate limiting on auth/search endpoints
-
----
-
-## 🐳 Docker (Optional)
-
-`docker-compose.yml` can run MongoDB, backend, and frontend:
-
-```bash
-docker compose up --build
-```
-
----
-
-## 🖼️ Screenshots
-
-Replace placeholders (keep filenames):
-
-* `assets/screenshots/01_home.png`
-* `assets/screenshots/02_auth.png`
-* `assets/screenshots/03_admin.png`
-* `assets/screenshots/04_cart_checkout.png`
-* `assets/screenshots/05_orders.png`
-
----
-
-## 🧭 Troubleshooting
-
-* **Mongo not reachable:** Start `mongod` or verify Atlas URI; allow IP in Atlas.
-* **CORS:** Set `CORS_ORIGIN` to your frontend origin.
-* **Embeddings undefined:** Run `npm run embed:seed` after `npm run seed`.
-* **Vector index error (Atlas):** Ensure index JSON matches model dimension.
-
----
 
 ## 🤖 My AI Usage (disclosure, if required by assignment)
 
 I used an AI assistant **only** to help draft project documentation and boilerplate scaffolding ideas.
 **All application AI features (semantic search, recommendations, tagging) are implemented in the project code itself**, using sentence-transformer embeddings and MongoDB vector search. I reviewed and tested everything locally.
+
 
 
 
